@@ -148,8 +148,7 @@ class CryptoListFragment : BaseFragment(), OnAddListener {
                 }
                 currencyList?.clear()
                 fetchedCurrencyDetails = emptyList()
-                adapter?.removeAllCryptoList()
-                fetchedCurrencyDetails = cryptoList
+                adapter?.setCryptoList(cryptoList)
                 Utils.runAfterRecycled(recyclerView!!, updateListRunnable)
             }
 
