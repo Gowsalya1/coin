@@ -129,8 +129,30 @@ class CryptoListFragment : BaseFragment(), OnAddListener {
                     currencyList?.favorite = favorite
                     currencyList?.let { PreferenceUtils.changeCryptoList(requireContext(), it) }
                     currencyList?.let { adapter?.updateFavourite(it) }
+                    activity?.runOnUiThread { adapter?.notifyDataSetChanged() }
+                    updateList()
                 }
             }
+        }
+    }
+
+    fun updateList() {
+        activity?.let {
+            val cryptoList: MutableList<CurrencyList> = mutableListOf()
+            PreferenceUtils.getCryptoList(it)?.let { list ->
+                cryptoList.addAll(list)
+            }
+            if (cryptoList.isNotEmpty()) {
+                cryptoList.sortWith { object1: CurrencyList, object2: CurrencyList ->
+                    object1.rank.compareTo(object2.rank)
+                }
+                currencyList?.clear()
+                fetchedCurrencyDetails = emptyList()
+                adapter?.removeAllCryptoList()
+                fetchedCurrencyDetails = cryptoList
+                Utils.runAfterRecycled(recyclerView!!, updateListRunnable)
+            }
+
         }
     }
 

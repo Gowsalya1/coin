@@ -32,7 +32,7 @@ data class CurrencyList(
     var platform: Platform?,
     @SerializedName("favorite")
     @Expose
-    var favorite: Boolean = false
+    var favorite: Boolean
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
