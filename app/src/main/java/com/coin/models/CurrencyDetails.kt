@@ -37,10 +37,6 @@ class CurrencyDetails {
     @Expose
     var date_added: String = ""
 
-    @SerializedName("platform")
-    @Expose
-    var platform: Platform? = null
-
     @SerializedName("category")
     @Expose
     var category: String = ""
@@ -61,6 +57,5 @@ class CurrencyDetails {
         (data["date_added"] as String).also { date_added = it }
         (data["category"] as String).also { category = it }
         (data["subreddit"] as String).also { subreddit = it }
-        (data["platform"] as Platform?)?.also { platform = it }
     }
 }
